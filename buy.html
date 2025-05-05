@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy - xceleste pads</title>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Greycliff';
+      src: url('Greycliff.otf') format('opentype');
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #bb94d3;
+      color: #fff;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    header h1 {
+      font-family: 'Greycliff', sans-serif;
+      font-size: 42px;
+      margin: 0;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: background 0.3s, border 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .product-card.selected {
+      border-color: white;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      font-family: 'Greycliff', sans-serif;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #eee;
+    }
+
+    .price-display {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 30px;
+      font-family: 'Greycliff', sans-serif;
+    }
+
+    .checkout-button {
+      display: block;
+      margin: 30px auto 0;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 15px 40px;
+      font-size: 18px;
+      color: #fff;
+      border-radius: 10px;
+      font-family: 'Greycliff', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+      transition: background 0.3s;
+    }
+
+    .checkout-button:hover {
+      background: rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+  <header>
+    <h1>Select Your Pad</h1>
+    <p>Choose wisely.</p>
+  </header>
+
+  <div class="section">
+    <div class="products" id="product-list">
+      <!-- Product Cards -->
+    </div>
+    <div class="price-display" id="price-display">
+      $0.00
+    </div>
+    <button class="checkout-button" onclick="checkout()">Buy Now</button>
+  </div>
+
+  <script>
+    
+    const products = [
+      {
+        name: 'xceleste frost 3x',
+        price: 29.99,
+        image: 'ap.png',
+        description: 'Ultra-low friction granite surface built for speed'
+      },
+      
+    ];
+
+    let selectedProduct = null;
+
+    const productList = document.getElementById('product-list');
+    const priceDisplay = document.getElementById('price-display');
+
+    products.forEach((product, index) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+      `;
+      card.onclick = () => {
+        document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedProduct = product;
+        priceDisplay.textContent = `$${product.price.toFixed(2)}`;
+      };
+      productList.appendChild(card);
+    });
+
+    function checkout() {
+      if (!selectedProduct) {
+        alert('Please select a mousepad before checking out.');
+        return;
+      }
+      alert(`You selected: ${selectedProduct.name} - $${selectedProduct.price.toFixed(2)}\nRedirecting to payment...`);
+      // Redirect or trigger checkout logic here
+      // window.location.href = `/checkout.html?product=${encodeURIComponent(selectedProduct.name)}`;
+    }
+
+    particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ffffff'
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    },
+                    image: {
+                        src: 'img/github.svg',
+                        width: 100,
+                        height: 100
+                    }
+                },
+                opacity: {
+                    value: 0.6,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 5,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 4,
+                        size_min: 0.3,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: false
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+  </script>
+</body>
+</html>
